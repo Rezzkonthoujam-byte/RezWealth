@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rez Wealth — 5 Financial Mistakes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #0A1628;
+    --navy2:      #0D1F3C;
+    --navy3:      #152238;
+    --gold:       #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-pale:  #F5E9C8;
+    --off-white:  #F8F6F1;
+    --white:      #FFFFFF;
+    --slate:      #4A5568;
+    --mid-grey:   #8A9AB0;
+    --red:        #C0392B;
+    --red-pale:   #FDF0EF;
+    --green:      #1A6B3C;
+    --green-pale: #EEF7F2;
+    --slide-w:    390px;
+    --slide-h:    693px; /* 9:16 ish */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060E1A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 32px 16px 48px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── TOP UI ── */
+  .ui-header {
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .ui-brand {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .ui-counter {
+    font-size: 11px;
+    color: var(--mid-grey);
+    letter-spacing: 1px;
+  }
+
+  /* ── CAROUSEL WRAPPER ── */
+  .carousel-track-wrap {
+    width: var(--slide-w);
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.15);
+    position: relative;
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+
+  /* ── SLIDE BASE ── */
+  .slide {
+    min-width: var(--slide-w);
+    height: var(--slide-h);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  /* ── PROGRESS DOTS ── */
+  .dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #2A3A52;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .dot.active {
+    width: 22px;
+    background: var(--gold);
+  }
+
+  /* ── NAV BUTTONS ── */
+  .nav-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .nav-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.08);
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .nav-btn:hover {
+    background: rgba(201,168,76,0.2);
+    border-color: var(--gold);
+  }
+  .nav-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 1 — COVER
+  ═══════════════════════════════════════ */
+  .s-cover {
+    background: var(--navy);
+  }
+  .s-cover .gold-top {
+    height: 6px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    flex-shrink: 0;
+  }
+  .s-cover .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 30px 0;
+    position: relative;
+  }
+  .s-cover .brand-line {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .s-cover .brand-sub {
+    font-size: 8px;
+    color: var(--mid-grey);
+    letter-spacing: 1px;
+  }
+  .s-cover .cover-accent-line {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    bottom: 120px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+  }
+  .s-cover .eyebrow {
+    margin-top: 56px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .s-cover .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.08;
+    margin-top: 12px;
+  }
+  .s-cover .cover-title span {
+    color: var(--gold);
+  }
+  .s-cover .cover-subtitle {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--mid-grey);
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 280px;
+  }
+  .s-cover .cover-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin-top: 20px;
+  }
+  .s-cover .cover-cta {
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--gold-light);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .s-cover .cover-cta svg {
+    animation: bounce-right 1.2s ease infinite;
+  }
+  @keyframes bounce-right {
+    0%,100% { transform: translateX(0); }
+    50%      { transform: translateX(5px); }
+  }
+  .s-cover .cover-bottom {
+    height: 56px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .s-cover .cover-bottom-text {
+    font-size: 8.5px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 1px;
+  }
+  /* Decorative circle bg */
+  .s-cover .deco-circle {
+    position: absolute;
+    right: -40px;
+    bottom: 70px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    pointer-events: none;
+  }
+  .s-cover .deco-circle2 {
+    position: absolute;
+    right: 20px;
+    bottom: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDES 2–6 — MISTAKE CARDS
+  ═══════════════════════════════════════ */
+  .s-mistake {
+    background: var(--off-white);
+    display: flex;
+    flex-direction: column;
+  }
+  .s-mistake .m-header {
+    background: var(--navy);
+    padding: 14px 24px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .s-mistake .m-brand {
+    font-size: 8px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .s-mistake .m-header-num {
+    font-size: 8px;
+    color: var(--mid-grey);
+    letter-spacing: 1px;
+  }
+  .s-mistake .m-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 24px 0;
+    overflow: hidden;
+  }
+  .s-mistake .m-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    width: fit-content;
+    margin-bottom: 10px;
+  }
+  .s-mistake .m-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .s-mistake .m-rule {
+    width: 32px;
+    height: 2.5px;
+    background: var(--gold);
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+
+  /* consequence block */
+  .m-block {
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .m-block.red {
+    background: var(--red-pale);
+    border-left: 3.5px solid var(--red);
+  }
+  .m-block.green {
+    background: var(--green-pale);
+    border-left: 3.5px solid var(--green);
+  }
+  .m-block .block-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .m-block.red .block-label  { color: var(--red); }
+  .m-block.green .block-label { color: var(--green); }
+  .m-block .block-item {
+    font-size: 10.5px;
+    color: #2D3748;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    display: flex;
+    gap: 7px;
+  }
+  .m-block .block-item:last-child { margin-bottom: 0; }
+  .m-block .bullet {
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 9px;
+  }
+  .m-block.red  .bullet { color: var(--red); }
+  .m-block.green .bullet { color: var(--green); }
+
+  /* callout strip */
+  .m-callout {
+    background: var(--gold-pale);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+  }
+  .m-callout p {
+    font-size: 10px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .s-mistake .m-footer {
+    margin-top: auto;
+    height: 44px;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex-shrink: 0;
+  }
+  .s-mistake .m-footer-text {
+    font-size: 7.5px;
+    color: var(--mid-grey);
+    letter-spacing: 0.5px;
+  }
+  .s-mistake .m-footer-arn {
+    font-size: 7.5px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ═══════════════════════════════════════
+     SLIDE 7 — CTA
+  ═══════════════════════════════════════ */
+  .s-cta {
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+  }
+  .s-cta .gold-top {
+    height: 6px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    flex-shrink: 0;
+  }
+  .s-cta .cta-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 32px;
+    text-align: center;
+    position: relative;
+  }
+  .s-cta .cta-eyebrow {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .s-cta .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .s-cta .cta-title span { color: var(--gold); }
+  .s-cta .cta-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 12px auto 18px;
+  }
+  .s-cta .cta-desc {
+    font-size: 11.5px;
+    color: var(--mid-grey);
+    line-height: 1.65;
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+  .s-cta .cta-card {
+    width: 100%;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .s-cta .cta-card-label {
+    font-size: 8px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .s-cta .cta-contact-line {
+    font-size: 12px;
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .s-cta .cta-arn {
+    font-size: 10px;
+    color: var(--mid-grey);
+    letter-spacing: 0.5px;
+  }
+  .s-cta .disclaimer {
+    font-size: 7.5px;
+    color: rgba(138,154,176,0.6);
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .s-cta .cta-footer {
+    height: 44px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .s-cta .cta-footer-text {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  /* deco */
+  .s-cta .deco-ring {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.07);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .s-cta .deco-ring2 {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.04);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  /* ── SWIPE HINT ── */
+  .swipe-hint {
+    font-size: 10px;
+    color: var(--mid-grey);
+    margin-top: 14px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="ui-header">
+  <span class="ui-brand">Rez Wealth Planning</span>
+  <span class="ui-counter" id="slide-counter">1 / 7</span>
+</div>
+
+<div class="carousel-track-wrap">
+  <div class="carousel-track" id="track">
+
+    <!-- ═══ SLIDE 1: COVER ═══ -->
+    <div class="slide s-cover">
+      <div class="gold-top"></div>
+      <div class="cover-body">
+        <div class="cover-accent-line"></div>
+        <div class="brand-line">Rez Wealth Planning</div>
+        <div class="brand-sub">ARN-300607 · rezzkonthoujam@gmail.com</div>
+        <div class="eyebrow">Financial Education Series</div>
+        <div class="cover-title">5 Financial<br>Mistakes<br><span>Costing You</span><br>Crores.</div>
+        <div class="cover-subtitle">What no one warns you about — and exactly what to do instead.</div>
+        <div class="cover-rule"></div>
+        <div class="cover-cta">
+          Swipe to read
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="#E8C96A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="deco-circle"></div>
+        <div class="deco-circle2"></div>
+      </div>
+      <div class="cover-bottom">
+        <span class="cover-bottom-text">REZ WEALTH PLANNING &nbsp;·&nbsp; ARN-300607 &nbsp;·&nbsp; rezzkonthoujam@gmail.com</span>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 2: MISTAKE 1 ═══ -->
+    <div class="slide s-mistake">
+      <div class="m-header">
+        <span class="m-brand">Rez Wealth Planning</span>
+        <span class="m-header-num">01 / 05</span>
+      </div>
+      <div class="m-body">
+        <div class="m-badge">Mistake #1</div>
+        <div class="m-title">No Emergency<br>Fund</div>
+        <div class="m-rule"></div>
+
+        <div class="m-block red">
+          <div class="block-label">Consequences</div>
+          <div class="block-item"><span class="bullet">▶</span><span>Forced into high-cost debt when life hits</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Long-term investments get broken prematurely</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Panic-selling during market crashes</span></div>
+        </div>
+
+        <div class="m-callout">
+          <p>Monthly Expense INR 50,000 → Emergency Fund = <strong>Minimum INR 3 Lakhs</strong><br>Target: 6–12 months of expenses.</p>
+        </div>
+
+        <div class="m-block green">
+          <div class="block-label">What To Do</div>
+          <div class="block-item"><span class="bullet">✓</span><span>Build 6–12 months of household expenses</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Keep in: Liquid MF, Fixed Deposits, or High-Yield Savings</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Never touch it unless it's a real emergency</span></div>
+        </div>
+      </div>
+      <div class="m-footer">
+        <span class="m-footer-text">rezzkonthoujam@gmail.com</span>
+        <span class="m-footer-arn">ARN-300607</span>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 3: MISTAKE 2 ═══ -->
+    <div class="slide s-mistake">
+      <div class="m-header">
+        <span class="m-brand">Rez Wealth Planning</span>
+        <span class="m-header-num">02 / 05</span>
+      </div>
+      <div class="m-body">
+        <div class="m-badge">Mistake #2</div>
+        <div class="m-title">No Health<br>Insurance</div>
+        <div class="m-rule"></div>
+
+        <div class="m-block red">
+          <div class="block-label">Consequences</div>
+          <div class="block-item"><span class="bullet">▶</span><span>Lifetime savings wiped in a single hospitalisation</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Forced to sell gold &amp; property at distressed prices</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Entire family buried in debt from multiple sources</span></div>
+        </div>
+
+        <div class="m-callout">
+          <p>Your employer cover <strong>stops the day your job stops.</strong><br>You need a personal policy independent of your employment.</p>
+        </div>
+
+        <div class="m-block green">
+          <div class="block-label">What To Do</div>
+          <div class="block-item"><span class="bullet">✓</span><span>Get health insurance the moment you start earning</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Choose: Claim Settlement Ratio 95%+, No Room Rent Cap, No Co-Pay</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Minimum cover: INR 10 Lakhs per person</span></div>
+        </div>
+      </div>
+      <div class="m-footer">
+        <span class="m-footer-text">rezzkonthoujam@gmail.com</span>
+        <span class="m-footer-arn">ARN-300607</span>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 4: MISTAKE 3 ═══ -->
+    <div class="slide s-mistake">
+      <div class="m-header">
+        <span class="m-brand">Rez Wealth Planning</span>
+        <span class="m-header-num">03 / 05</span>
+      </div>
+      <div class="m-body">
+        <div class="m-badge">Mistake #3</div>
+        <div class="m-title">No Term<br>Insurance</div>
+        <div class="m-rule"></div>
+
+        <div class="m-block red">
+          <div class="block-label">Consequences</div>
+          <div class="block-item"><span class="bullet">▶</span><span>Family breaks financially when primary income vanishes</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Outstanding loans turn into unbearable burden</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Children's &amp; spouse's future goals collapse entirely</span></div>
+        </div>
+
+        <div class="m-callout">
+          <p>Cover = <strong>10–15x your annual income.</strong><br>Premiums are cheapest when you're young &amp; healthy. Buy now.</p>
+        </div>
+
+        <div class="m-block green">
+          <div class="block-label">What To Do</div>
+          <div class="block-item"><span class="bullet">✓</span><span>Buy term insurance as soon as you start working</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Cover = minimum 10–15x of annual income</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Claim Settlement Ratio &gt;95% · Pure term only, never mixed</span></div>
+        </div>
+      </div>
+      <div class="m-footer">
+        <span class="m-footer-text">rezzkonthoujam@gmail.com</span>
+        <span class="m-footer-arn">ARN-300607</span>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 5: MISTAKE 4 ═══ -->
+    <div class="slide s-mistake">
+      <div class="m-header">
+        <span class="m-brand">Rez Wealth Planning</span>
+        <span class="m-header-num">04 / 05</span>
+      </div>
+      <div class="m-body">
+        <div class="m-badge">Mistake #4</div>
+        <div class="m-title">Delaying<br>Investing</div>
+        <div class="m-rule"></div>
+
+        <div class="m-block red">
+          <div class="block-label">Consequences</div>
+          <div class="block-item"><span class="bullet">▶</span><span>Inflation erodes purchasing power every single year</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Home, education, marriage goals become unaffordable</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Emergencies with no corpus force massive debt</span></div>
+        </div>
+
+        <div class="m-callout">
+          <p>Starting at 25 vs 35 — same SIP, same amount.<br><strong>The early starter retires with 3x more.</strong> Delaying 10 years costs crores.</p>
+        </div>
+
+        <div class="m-block green">
+          <div class="block-label">What To Do</div>
+          <div class="block-item"><span class="bullet">✓</span><span>Invest minimum 20% of monthly income — non-negotiable</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Step-up SIP by 7–10% every year as income grows</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Never stop SIP in downturns — wealth is built there</span></div>
+        </div>
+      </div>
+      <div class="m-footer">
+        <span class="m-footer-text">rezzkonthoujam@gmail.com</span>
+        <span class="m-footer-arn">ARN-300607</span>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 6: MISTAKE 5 ═══ -->
+    <div class="slide s-mistake">
+      <div class="m-header">
+        <span class="m-brand">Rez Wealth Planning</span>
+        <span class="m-header-num">05 / 05</span>
+      </div>
+      <div class="m-body">
+        <div class="m-badge">Mistake #5</div>
+        <div class="m-title">No Financial<br>Emergency<br>Folder</div>
+        <div class="m-rule"></div>
+
+        <div class="m-block red">
+          <div class="block-label">Consequences</div>
+          <div class="block-item"><span class="bullet">▶</span><span>Unclaimed wealth rots — family never sees it</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Insurance claims lapse because no one knew the policy existed</span></div>
+          <div class="block-item"><span class="bullet">▶</span><span>Property &amp; assets lost to legal disputes</span></div>
+        </div>
+
+        <div class="m-callout">
+          <p>One organised folder — physical + digital.<br><strong>Takes 2 hours. Saves your family years of pain.</strong></p>
+        </div>
+
+        <div class="m-block green">
+          <div class="block-label">What To Maintain</div>
+          <div class="block-item"><span class="bullet">✓</span><span>Family IDs · Insurance policies · Investment folios</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Bank accounts · Loans · Property deeds · Passwords</span></div>
+          <div class="block-item"><span class="bullet">✓</span><span>Tell one trusted family member where it is</span></div>
+        </div>
+      </div>
+      <div class="m-footer">
+        <span class="m-footer-text">rezzkonthoujam@gmail.com</span>
+        <span class="m-footer-arn">ARN-300607</span>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 7: CTA ═══ -->
+    <div class="slide s-cta">
+      <div class="gold-top"></div>
+      <div class="cta-body">
+        <div class="deco-ring"></div>
+        <div class="deco-ring2"></div>
+        <div class="cta-eyebrow">Take the next step</div>
+        <div class="cta-title">Fix All<br><span>Five.</span></div>
+        <div class="cta-rule"></div>
+        <div class="cta-desc">Knowing the mistakes is step one.<br>A personalised plan that covers every one of them — for your income, your family, your goals — is step two.</div>
+        <div class="cta-card">
+          <div class="cta-card-label">Get your free financial health check</div>
+          <div class="cta-contact-line">rezzkonthoujam@gmail.com</div>
+          <div class="cta-arn">Rez Wealth Planning · ARN-300607</div>
+        </div>
+        <div class="disclaimer">Mutual fund investments are subject to market risks. Please read all scheme related documents carefully. Insurance is a subject matter of solicitation.</div>
+      </div>
+      <div class="cta-footer">
+        <span class="cta-footer-text">Rez Wealth Planning · ARN-300607</span>
+      </div>
+    </div>
+
+  </div><!-- /track -->
+</div><!-- /wrap -->
+
+<div class="dots" id="dots"></div>
+
+<div class="nav-row">
+  <button class="nav-btn" id="prev" onclick="move(-1)">&#8592;</button>
+  <button class="nav-btn" id="next" onclick="move(1)">&#8594;</button>
+</div>
+
+<div class="swipe-hint">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A9AB0" stroke-width="1.5" stroke-linecap="round">
+    <path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-3M12 3h9v9"/>
+  </svg>
+  Touch &amp; drag · or use arrows
+</div>
+
+<script>
+  const TOTAL = 7;
+  let cur = 0;
+  const track = document.getElementById('track');
+  const dotsEl = document.getElementById('dots');
+  const counter = document.getElementById('slide-counter');
+  const W = 390; // slide width
+
+  // Build dots
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    cur = Math.max(0, Math.min(TOTAL - 1, n));
+    track.style.transform = `translateX(-${cur * W}px)`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    counter.textContent = `${cur + 1} / ${TOTAL}`;
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === TOTAL - 1;
+  }
+
+  function move(dir) { goTo(cur + dir); }
+
+  // Touch/swipe
+  let tx = 0;
+  const wrap = document.querySelector('.carousel-track-wrap');
+  wrap.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) move(dx > 0 ? 1 : -1);
+  }, { passive: true });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') move(1);
+    if (e.key === 'ArrowLeft')  move(-1);
+  });
+
+  goTo(0);
+</script>
+</body>
+</html>
